@@ -146,7 +146,7 @@ public class Player extends Entity{
 					gp.obj[i].worldY = y;
 					hasKey--;
 				} else {
-					gp.ui.showMessage("You dont have enough keysdw");
+					gp.ui.showMessage("You need a key!");
 				}
 				
 				System.out.println("Keys: " + hasKey);
@@ -167,6 +167,19 @@ public class Player extends Entity{
 				    }
 				}).start();
 
+				break;
+			case "squirrel":
+				gp.ui.showMessage("A squirrel!");
+				break;
+			case "gate":
+				if(hasKey > 0) {
+					gp.ui.showMessage("you oppened a gate! You won!");
+					hasKey--;
+					Counter.stop();
+					gp.ui.triggerWinScreen(); // Wyświetl ekran zwycięstwa
+				} else {
+					gp.ui.showMessage("You need a key!");
+				}
 				break;
 			}
 		}
