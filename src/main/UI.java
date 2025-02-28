@@ -22,11 +22,12 @@ import java.awt.image.BufferedImage;
 public class UI {
 
     GamePanel gp;
+    Graphics2D g2;
     Font normalFont = new Font("Times New Roman", Font.PLAIN, 40);
     Font pixelMplusSmall;
     Font pixelMplusBig;
     Font pixelMplusMini;
-    BufferedImage keyImage;
+//    BufferedImage keyImage;
     Boolean isThereAmessage = false;
     Boolean winMessage = false;
     String message = "Go find a chest!";
@@ -81,9 +82,9 @@ public class UI {
         this.gp = gp;
 
         try {
-            pixelMplusMini = Font.createFont(Font.TRUETYPE_FONT, new File("resources/font/PixelMplus12-Bold.ttf")).deriveFont(15f);
-            pixelMplusSmall = Font.createFont(Font.TRUETYPE_FONT, new File("resources/font/PixelMplus12-Bold.ttf")).deriveFont(30f);
-            pixelMplusBig = Font.createFont(Font.TRUETYPE_FONT, new File("resources/font/PixelMplus12-Bold.ttf")).deriveFont(50f);
+            pixelMplusMini = Font.createFont(Font.TRUETYPE_FONT, new File("resources/font/PixelMplus12-Bold.ttf")).deriveFont(15F);
+            pixelMplusSmall = Font.createFont(Font.TRUETYPE_FONT, new File("resources/font/PixelMplus12-Bold.ttf")).deriveFont(30F);
+            pixelMplusBig = Font.createFont(Font.TRUETYPE_FONT, new File("resources/font/PixelMplus12-Bold.ttf")).deriveFont(50F);
 
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("/font//PixelMplus12-Bold.ttf")));
@@ -91,41 +92,45 @@ public class UI {
             e.printStackTrace();
         }
 
-        OKey key = new OKey();
-        keyImage = key.image;
+//        OKey key = new OKey();
+//        keyImage = key.image;
     }
 
+    Font fontToUseSmall = (pixelMplusSmall != null) ? pixelMplusSmall : normalFont;
+    Font fontToUseBig = (pixelMplusBig != null) ? pixelMplusBig : normalFont;
+    Font fontToUseMini = (pixelMplusMini != null) ? pixelMplusMini : normalFont;
+    
     public void draw(Graphics2D g2) {
-        Font fontToUseSmall = (pixelMplusSmall != null) ? pixelMplusSmall : normalFont;
-        Font fontToUseBig = (pixelMplusBig != null) ? pixelMplusBig : normalFont;
-        Font fontToUseMini = (pixelMplusMini != null) ? pixelMplusMini : normalFont;
-
-        g2.setFont(fontToUseSmall);
-        g2.setColor(Color.BLACK);
-        g2.drawImage(keyImage, gp.tileSize / 2, gp.tileSize / 2, gp.tileSize, gp.tileSize, null);
-        g2.drawString("x " + gp.player.hasKey, 80, 55);
-
-        g2.setFont(fontToUseMini);
-        g2.setColor(Color.BLACK);
-        g2.drawString("FPS: " + FPS, 20, 550);
-
-        if (isThereAmessage) {
-            long currentTime = System.currentTimeMillis();
-
-            if (currentTime - messageStartTime >= 2000) {
-                isThereAmessage = false;
-            } else {
-                g2.setFont(fontToUseSmall);
-                g2.setColor(Color.BLACK);
-                g2.drawString(message, (gp.tileSize * gp.maxScreenCol - g2.getFontMetrics().stringWidth(message)) / 2, gp.tileSize * (gp.maxScreenRow - 1));
-            }
-        }
-
-        if (winMessage) {
-            displayWinScreen(g2, gp);
-        }
+    	this.g2 = g2;
+      
+    	 g2.setFont(fontToUseBig);
+         g2.setColor(Color.white);
+    	
+    	if(gp.gameState == gp.playState) {
+    		
+    	} else if (gp.gameState == gp.pauseState) {
+    		drawPauseScreen();
+    	}
     }
 
+    public void drawPauseScreen() {
+    	String text = "PAUSE";
+    	
+    	g2.setColor(new Color(0,0,0,150));
+    	g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+    	
+    	 g2.setFont(fontToUseBig);
+    	
+    	 int textW = g2.getFontMetrics().stringWidth(text);
+    	 int textH = g2.getFontMetrics().getHeight();
+         
+    	 int x = (gp.screenWidth - textW) / 2;
+    	 int y = (gp.screenHeight - textH) / 2;
+    	 
+    	 g2.setColor(Color.WHITE);
+    	 g2.drawString(text, x, y);
+    }
+    
     private long messageStartTime = -1;
 
     public void showMessage(String newMessage) {
@@ -143,4 +148,5 @@ public class UI {
         message = newMessage;
         winMessage = true;
     }
+    
 }

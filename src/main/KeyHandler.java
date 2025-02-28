@@ -13,6 +13,12 @@ public class KeyHandler implements KeyListener {
     // Flags to track whether a specific movement key is pressed
     public boolean upPressed, downPressed, leftPressed, rightPressed;
 
+    GamePanel gp;
+    
+    public KeyHandler(GamePanel gp) {
+    	this.gp = gp;
+    }
+    
     /**
      * Called when a key is typed. This method is empty because keyTyped is not used for movement detection.
      *
@@ -48,6 +54,20 @@ public class KeyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_D) {
             rightPressed = true;
+        }
+        if (code == KeyEvent.VK_P) {
+        	System.out.println(gp.gameState);
+        	if(gp.gameState == gp.playState) {
+        		gp.gameState = gp.pauseState;
+        	} else if(gp.gameState == gp.pauseState) {
+        		gp.gameState = gp.playState;
+        	}
+//        	switch(gp.gameState) {
+//        	case 1:
+//        		gp.gameState = gp.playState;        		
+//        	case 0:
+//        		gp.gameState = gp.pauseState;
+//        	}
         }
     }
 

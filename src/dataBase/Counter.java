@@ -34,7 +34,7 @@ public class Counter {
      */
     private static long startTime;
 
-    /**
+    /** 
      * Stores the elapsed time in milliseconds.
      */
     public static long elapsedTime;
