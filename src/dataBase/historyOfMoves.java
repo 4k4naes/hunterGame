@@ -36,7 +36,6 @@ public class historyOfMoves {
 
 
     public static void initializeDatabase() {
-        // Create the database if it does not exist
         try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
             try (Statement statement = connection.createStatement()) {
                 String createDatabaseQuery = "CREATE DATABASE IF NOT EXISTS " + DB_NAME;
@@ -47,7 +46,6 @@ public class historyOfMoves {
             return;
         }
 
-        // Create the table if it does not exist
         try (Connection connection = DriverManager.getConnection(FULL_DB_URL, DB_USER, DB_PASSWORD)) {
             try (Statement statement = connection.createStatement()) {
                 String createTableQuery = "CREATE TABLE IF NOT EXISTS moveHistory (" +
