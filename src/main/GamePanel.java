@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 import dataBase.Counter;
+import dataBase.historyOfMoves;
 import entity.Player;
 //import loginy.Sound;
 import objects.SuperObject;
@@ -23,8 +24,8 @@ public class GamePanel extends JPanel implements Runnable{
 	final int scale = 3;
 	
 	public final int tileSize = originalTileSize * scale;
-	public final int maxScreenCol = 16;
-	public final int maxScreenRow = 12;
+	public final int maxScreenCol = 12;
+	public final int maxScreenRow = 8;
 	public final int screenWidth = tileSize * maxScreenCol;
 	public final int screenHeight = tileSize * maxScreenRow;
 	
@@ -64,6 +65,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public void startGameThread() {
 		gameThread = new Thread(this);
 		gameThread.start();
+		historyOfMoves.initializeDatabase();
 		Counter.start();
 	}
 	

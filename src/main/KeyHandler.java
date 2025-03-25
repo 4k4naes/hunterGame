@@ -3,6 +3,8 @@ package main;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import dataBase.historyOfMoves;
+
 /**
  * The KeyHandler class implements KeyListener to handle user input from the keyboard.
  * It listens for key events and updates the corresponding movement flags based on the keys pressed or released.
@@ -68,6 +70,9 @@ public class KeyHandler implements KeyListener {
 //        	case 0:
 //        		gp.gameState = gp.pauseState;
 //        	}
+        }
+        if (code == KeyEvent.VK_H) {
+        	historyOfMoves.seeTheHistory();
         }
     }
 

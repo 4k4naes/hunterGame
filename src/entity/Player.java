@@ -9,6 +9,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import dataBase.Counter;
+import dataBase.historyOfMoves;
 import objects.ODoor;
 import main.GamePanel;
 import main.KeyHandler;
@@ -90,15 +91,19 @@ public class Player extends Entity{
 				switch(direction) {
 				case "up":
 					worldY -= speed;
+					historyOfMoves.saveMove("Up");
 					break;
 				case "down":
 					worldY += speed;
+					historyOfMoves.saveMove("Down");
 					break;
 				case "left":
 					worldX -= speed;
+					historyOfMoves.saveMove("Left");
 					break;
 				case "right":
 					worldX += speed;
+					historyOfMoves.saveMove("Right");
 					break;
 				}
 			}
